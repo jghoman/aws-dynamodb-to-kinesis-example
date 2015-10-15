@@ -134,7 +134,7 @@ public class DynamoDBToKinesisExample {
 
     KinesisClientLibConfiguration workerConfig = new KinesisClientLibConfiguration("testing-dynamo-db-streams", myStreamArn, provider, "John T. Worker")
         .withMaxRecords(1000)
-        .withMetricsLevel(MetricsLevel.NONE)
+        .withMetricsLevel(MetricsLevel.NONE)   // Otherwise, metrics thread starts and never finishes...
         .withInitialPositionInStream(InitialPositionInStream.TRIM_HORIZON);
 
     Worker worker = new Worker(new CoolStreamsRecordProcessorFactory(), workerConfig, adapterClient, dynamoDBClient, cloudWatchClient);
